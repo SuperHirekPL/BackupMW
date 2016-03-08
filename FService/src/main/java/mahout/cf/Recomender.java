@@ -60,7 +60,7 @@ public class Recomender {
 						System.out.println(itemId+","+recommended.getItemID()+","+recommended.getValue());
 					}
 					x++;
-					if(x>100) break;
+					if(x>3) break;
 				}
 			} catch (TasteException e) {
 				System.out.println("B³ad przy iteracji");
@@ -74,7 +74,7 @@ public class Recomender {
 	}
 	
 	//CityBlockSimilarity, EuclideanDistanceSimilarity, LogLikelihoodSimilarity, PearsonCorrelationSimilarity, TanimotoCoefficientSimilarity, UncenteredCosineSimilarity
-	private enum SimilarityType{
+	public enum SimilarityType{
 		CITYBLOCK,EUCLIDEANDISTANCE,LOGLIKELIHOOD,PEARSONCORRELATION,TANIMOTOCOEFFICIENT,UNCENTEREDCOSINE
 	}
 }

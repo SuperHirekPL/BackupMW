@@ -45,6 +45,7 @@ public class DBContex {
 	public final static String ITEMSIDS_COLUMN_ID = "id";
 	public final static String ITEMSIDS_COLUMN_ITEMID = "itemid";
 
+	//powinnien byc pywatny konsturkotro singletona
 	public DBContex() {
 	}
 
@@ -153,26 +154,26 @@ public class DBContex {
 	public void insertSampleDate() {
 		// sample data for users
 		getSession().execute(
-				"INSERT INTO users (userid,itemid,value) VALUES (0, 0, 1.0);");
+				"INSERT INTO users (userid,itemid,value) VALUES (1, 1, 1.0);");
 		getSession().execute(
-				"INSERT INTO users (userid,itemid,value) VALUES (1, 0, 3.0);");
+				"INSERT INTO users (userid,itemid,value) VALUES (2, 2, 2.0);");
 		getSession().execute(
-				"INSERT INTO users (userid,itemid,value) VALUES (2, 2, 1.0);");
+				"INSERT INTO users (userid,itemid,value) VALUES (3, 3, 3.0);");
 		// sample data for items
 		getSession().execute(
-				"INSERT INTO items (itemid,userid,value) VALUES (0, 0, 1.0);");
+				"INSERT INTO items (itemid,userid,value) VALUES (1, 1, 1.0);");
 		getSession().execute(
-				"INSERT INTO items (itemid,userid,value) VALUES (0, 1, 3.0);");
+				"INSERT INTO items (itemid,userid,value) VALUES (2, 2, 2.0);");
 		getSession().execute(
-				"INSERT INTO items (itemid,userid,value) VALUES (2, 2, 1.0);");
+				"INSERT INTO items (itemid,userid,value) VALUES (3, 3, 3.0);");
 		// sample data for userIDs
-		getSession().execute("INSERT INTO userids (id, userid) VALUES (0, 0);");
-		getSession().execute("INSERT INTO userids (id, userid) VALUES (0, 1);");
-		getSession().execute("INSERT INTO userids (id, userid) VALUES (0, 2);");
+		getSession().execute("INSERT INTO userids (id, userid) VALUES (1, 1);");
+		getSession().execute("INSERT INTO userids (id, userid) VALUES (2, 2);");
+		getSession().execute("INSERT INTO userids (id, userid) VALUES (3, 3);");
 		// sample data for itemIDs
-		getSession().execute("INSERT INTO itemids (id, itemID) VALUES (0, 0);");
-		getSession().execute("INSERT INTO itemids (id, itemID) VALUES (0, 1);");
-		getSession().execute("INSERT INTO itemids (id, itemID) VALUES (0, 2);");
+		getSession().execute("INSERT INTO itemids (id, itemID) VALUES (1, 1);");
+		getSession().execute("INSERT INTO itemids (id, itemID) VALUES (2, 2);");
+		getSession().execute("INSERT INTO itemids (id, itemID) VALUES (3, 3);");
 
 	}
 

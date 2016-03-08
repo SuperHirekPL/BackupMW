@@ -15,7 +15,6 @@ public class RunTest {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		System.out.println(5^2);
 		//Example.connectWithFacebookByToken();
 
 		
@@ -23,25 +22,30 @@ public class RunTest {
 		//fbConnector.getGroupMembersId(groupID);
 		//fbConnector.getGroupPostId(groupID);
 		//fbConnector.getItemRecomendationByUser(groupID);
-//		DBContex dbContex= new DBContex();
-//		//Recomender rec= new Recomender();
+		DBContex dbContex= new DBContex();
+
 //		
 //		//try{
 //			dbContex.startDBCassandra();
 //			dbContex.deleteDefaultKeysSpace();
-//			dbContex.createSchemaForTwoVer();
-			FbConnector fbConnector = new FbConnector(appToken,Version.VERSION_2_0);
+		
+			//dbContex.createSchemaForTwoVer();
+//			FbConnector fbConnector = new FbConnector(appToken,Version.VERSION_2_0);
 			//System.out.println("Wynik publiczeg wyszukiwania "+ fbConnector.getResultFbSearch());
 			
-			System.out.println("Test"+ fbConnector.testSmapleFql());
+//			System.out.println("Test"+ fbConnector.testSmapleFql());
 			
 			
 			//System.out.print(fbConnector.getCurrentUser().getFirstName());
 			
 			//fbConnector.getItemRecomendationByUser(groupID);
 			//dbContex.insertSampleDate();
+			//System.out.print("insert ok");
+			
+			Recomender.craeteItemSimilarityCFRecomender(Recomender.SimilarityType.CITYBLOCK);
+			
 			//rec.craeteCFRecomender();
-			System.out.print("Recomendacja zosta³a pomyslnie wykonana");
+			//System.out.print("Recomendacja zosta³a pomyslnie wykonana");
 			//dbContex.testSelectUsers();
 			
 			//dbContex.createSchemaForTwoVer();
