@@ -24,6 +24,7 @@
 </fieldset>
 
 
+
 <form>
     <div class="well carousel-search hidden-sm">
         <div class="btn-group"> <a class="btn btn-default dropdown-toggle btn-select" data-toggle="dropdown" href="#">Wybierz działanie <span class="caret"></span></a>
@@ -75,9 +76,9 @@
                             <thead>
                                 <tr>
                                     <td>#</td>
-                                    <td>Name</td>
-                                    <td>Last name</td>
-                                    <td>Birth date</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
                                     <td>Role</td>
                                     <td>Department</td>
                                     <td>E-mail</td>                                 

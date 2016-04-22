@@ -13,13 +13,13 @@ import service.connector.FbConnector;
  * Servlet implementation class FBMenager
  */
 @WebServlet("/FBMenager")
-public class FBMenager extends HttpServlet {
+public class FBManager extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FBMenager() {
+    public FBManager() {
         super();
         // TODO Auto-generated constructor stub
     }

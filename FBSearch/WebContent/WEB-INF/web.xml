@@ -10,6 +10,15 @@
     <url-pattern>/searcher</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <servlet-name>FBManager</servlet-name>
+    <servlet-class>servlets.FBManager</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FBManager</servlet-name>
+    <url-pattern>/manager</url-pattern>
+  </servlet-mapping>
+  
   <welcome-file-list>
     <welcome-file>loginFB.html</welcome-file>
   </welcome-file-list>
