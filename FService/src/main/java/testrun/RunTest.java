@@ -1,7 +1,11 @@
 package testrun;
 
 import mahout.cf.Recomender;
+import mahout.cf.Recomender.SimilarityType;
 import service.connector.*;
+
+import java.util.LinkedList;
+import java.util.List;
 
 import com.restfb.Version;
 
@@ -9,22 +13,31 @@ import dbContex.cassandra.DBContex;
 
 
 public class RunTest {
-	private static final String groupID=/*Testowa*/"1604917516431522"; //Dragons"1432118370353397";
-	private static final String appToken ="CAACEdEose0cBAFKXsobLqUdVaX70Izz1k5iNdEc8T9rrPophq0o6ZCJvgeEiZBZACnPYnSwAC1tterPpadFMtIZBeCfH5ATy8tLtyA9HabaKrzPvU1fVsT6fGbyHvJ4GD4p86OnlIycTLFv43yA49NS3ZADqbhhG3LcMRcxrKLiCuO3lBScybcfN4O0qcfgRAoz0NNhpRZBgZDZD";
+	private static final String groupID=/*Testowa*/"1604918533098087"; //Dragons"1432118370353397";
+	private static final String appToken ="EAAGJtcEBEQsBAAQ7yDZAEnaO3LpxT784KJuo6V7aImYb5jby8FEh2S5vjsl8On4HKZCX09DK7mZBTEY2FWPFCni7a5tN0ZBlh09rhsjG3ZAW1ttshpiDuZCpJ6ldJYIgRyOZARNMt7AVWOZAZAZBUZB8ZC8UTSNaiWAbkggnRugCBcGDdgZDZD";
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		//Example.connectWithFacebookByToken();
-
+//		DBContex dbInstance = DBContex.getInstance();
+//		dbInstance.deleteDefaultKeysSpace();
+//		dbInstance.createSchemaForTwoVer();
+//		Example.connectWithFacebookByToken();
+//		Recomender.craeteItemSimilarityCFRecomender(SimilarityType.EUCLIDEANDISTANCE);
+		FbConnector fbconn = new FbConnector(appToken);
+		List<String> listId = new LinkedList<String>();
+		listId.add(groupID);
+		fbconn.convertPostIdToModelRecomendation(listId);
 		
-		//fbConnector.getItemRecomendationByUser(groupID);
-		//fbConnector.getGroupMembersId(groupID);
-		//fbConnector.getGroupPostId(groupID);
-		//fbConnector.getItemRecomendationByUser(groupID);
-		DBContex dbContex= new DBContex();
+	
 
-//		
+//		FbConnector fbconnector = new  FbConnector(appToken);
+//		List<String> listOfMemebers=  fbconnector.getGroupMembersId(groupID);
+//		if(listOfMemebers!= null && listOfMemebers.size()>0){
+//			System.out.println(listOfMemebers.size());
+//		} 
+		
 //		//try{
 //			dbContex.startDBCassandra();
 //			dbContex.deleteDefaultKeysSpace();
@@ -42,7 +55,7 @@ public class RunTest {
 			//dbContex.insertSampleDate();
 			//System.out.print("insert ok");
 			
-			Recomender.craeteItemSimilarityCFRecomender(Recomender.SimilarityType.CITYBLOCK);
+//			Recomender.craeteItemSimilarityCFRecomender(Recomender.SimilarityType.CITYBLOCK);
 			
 			//rec.craeteCFRecomender();
 			//System.out.print("Recomendacja zosta³a pomyslnie wykonana");

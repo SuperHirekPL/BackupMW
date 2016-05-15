@@ -17,14 +17,16 @@ import service.model.Recomendation;
 /**
  * Servlet implementation class ServletMenager
  */
-@WebServlet("/ServletMenager")
-public class ServletMenager extends HttpServlet {
+@WebServlet(
+		name = "ServletManager",
+		urlPatterns = {"/servletManager"})
+public class ServletManager extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ServletMenager() {
+    public ServletManager() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,7 +39,8 @@ public class ServletMenager extends HttpServlet {
 		Cookie[] cookies =request.getCookies();
 		String appToken = servlets.tools.Utils.getCookieValue(cookies, "fbToken");
 		FbConnector fbconnector = new service.connector.FbConnector(appToken);
-		//String nameUser=fbconnector.getNameUser();		
+		//String nameUser=fbconnector.getNameUser();	
+		
 		forwardListEmployees(request,response,fbconnector.getAllRecomendation());
 		
 	}
@@ -46,10 +49,11 @@ public class ServletMenager extends HttpServlet {
 	
     private void forwardListEmployees(HttpServletRequest req, HttpServletResponse resp, List<Recomendation> recomendationList)
             throws ServletException, IOException {
-        String nextJSP = "mainPage.jsp";
+        String nextJSP = "/mainPage.jsp";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
         req.setAttribute("recomendationList", recomendationList);
         dispatcher.forward(req, resp);
     } 
+    
 
 }

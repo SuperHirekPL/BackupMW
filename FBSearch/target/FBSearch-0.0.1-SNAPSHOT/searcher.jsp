@@ -24,18 +24,19 @@
 </fieldset>
 
 
+
 <form>
     <div class="well carousel-search hidden-sm">
-        <div class="btn-group"> <a class="btn btn-default dropdown-toggle btn-select" data-toggle="dropdown" href="#">Select a Country <span class="caret"></span></a>
+        <div class="btn-group"> <a class="btn btn-default dropdown-toggle btn-select" data-toggle="dropdown" href="#">Wybierz działanie <span class="caret"></span></a>
             <ul class="dropdown-menu">
                 <li><a href="#">Algorytmy rekomendacji</a></li>
 <!--                 <li><a href="#">Canada</a></li> -->
                 <li class="divider"></li>
             </ul>
         </div>
-        <div class="btn-group"> <a class="btn btn-default dropdown-toggle btn-select2" data-toggle="dropdown" href="#">Select a Region <span class="caret"></span></a>
+        <div class="btn-group"> <a class="btn btn-default dropdown-toggle btn-select2" data-toggle="dropdown" href="#">Wybierz algorytm <span class="caret"></span></a>
             <ul class="dropdown-menu">
-                <li><a href="#">Metryka miejska</a></li>
+                <li><a href="./">Metryka miejska</a></li>
                 <li><a href="#">Metryka Euklidesowa</a></li>
                 <li><a href="#">Współczynnik podobieństwa Log Likelihood'a</a></li>
                 <li><a href="#">Współczynnik podobieństwa Tanimoto</a></li>
@@ -75,9 +76,9 @@
                             <thead>
                                 <tr>
                                     <td>#</td>
-                                    <td>Name</td>
-                                    <td>Last name</td>
-                                    <td>Birth date</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
                                     <td>Role</td>
                                     <td>Department</td>
                                     <td>E-mail</td>                                 

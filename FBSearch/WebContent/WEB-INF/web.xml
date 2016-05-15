@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
+<web-app
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+   version="3.1">
   <display-name>FBSearch</display-name>
   <servlet>
     <servlet-name>SearchServlets</servlet-name>
@@ -9,15 +13,9 @@
     <servlet-name>SearchServlets</servlet-name>
     <url-pattern>/searcher</url-pattern>
   </servlet-mapping>
+    
+
   
-  <servlet>
-    <servlet-name>FBManager</servlet-name>
-    <servlet-class>servlets.FBManager</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>FBManager</servlet-name>
-    <url-pattern>/manager</url-pattern>
-  </servlet-mapping>
   
   <welcome-file-list>
     <welcome-file>loginFB.html</welcome-file>

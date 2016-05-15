@@ -16,19 +16,19 @@ import service.connector.FbConnector;
 
 
 public class Example {
-	private static final String MY_TOKEN="CAACEdEose0cBAEd6XV2Hvf1G8ZAiKjNgrmr4ISnkKrQVTKHI5m7IFFoOPSwLoAAnbB1ZBNA7UisTZAOwyrCT88OHNl1TmbtiWHESU0wOSCpJZBCK9FRm8tYzFUrdzqF7qbsx3WAzY9dL8hsZARFw3lZCzIRZByAtsT16SKHtixDtqRI83UEjWsiOUMTAJ2IhNfqbVpYv4pZCIzDVxoEFkI0V";
+	private static final String MY_TOKEN="EAAGJtcEBEQsBACFij9vobtALKYTrG1pZAXVPYf3U5MZBdgH5xF3kQl2Ko7pTWtSQukCiYlc70SzlGZAi8WRa78ifQ9C7qwGGwevLiO4QTqJY0VAWC6WTK32K1sioHjZCZCKlAlINieuJm2dYleARC5Vb24Ci6eAL5ZC11uqPe0cAZDZD";
 
 	public static void connectWithFacebookByToken(){
-		FacebookClient fbClient = new DefaultFacebookClient(MY_TOKEN);
+		//FacebookClient fbClient = new DefaultFacebookClient(MY_TOKEN,Version.VERSION_2_2);
 		
-		Version ver = Version.VERSION_2_0;// VERSION_2_2;
+		Version ver = Version.VERSION_2_2;
 //		FacebookClient fbClient2 = new  DefaultFacebookClient(MY_TOKEN, ver);
 		
 		FbConnector fbConnector = new FbConnector(MY_TOKEN,ver);
-		System.out.println("Test"+ fbConnector.testSmapleFql());
 		
-		System.out.println("Wynik publiczeg wyszukiwania "+ fbConnector.getResultFbSearch());
+		fbConnector.saveFacebookPostToDbByGroupId("1604917516431522");
 	
+		
 //		User user = fbClient2.fetchObject("me", User.class);
 ////		Connection<User> myFriends = fbClient2.fetchConnection("me/friends", User.class);
 ////		  myFriends.getNextPageUrl();

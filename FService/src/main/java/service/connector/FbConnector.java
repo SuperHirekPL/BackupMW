@@ -2,6 +2,7 @@ package service.connector;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.jboss.netty.handler.ipfilter.OneIpFilterHandler;
@@ -22,6 +23,9 @@ import com.restfb.types.Post.Likes;
 import com.restfb.types.User;
 
 import dbContex.cassandra.DBContex;
+import mahout.cf.Recomender;
+import mahout.cf.Recomender.SimilarityType;
+import service.model.Recomendation;
 
 public class FbConnector {
 
@@ -37,7 +41,7 @@ public class FbConnector {
 
 	private DBContex getDbContex() {
 		if (_dbContex == null) {
-			_dbContex = new DBContex();
+			_dbContex = DBContex.getInstance();
 		}
 		return _dbContex;
 	}
@@ -65,6 +69,7 @@ public class FbConnector {
 		User user = _fbClient.fetchObject("me", User.class);
 
 		userName = user.getName();
+		
 		return userName;
 	}
 
@@ -94,12 +99,12 @@ public class FbConnector {
 				}
 			}
 		} catch (Exception e) {
-
+			throw e;
 		}
 		return postsId;
 	}
 
-	public List<Integer> getItemRecomendationByUser(String groupId) {
+	public void saveFacebookPostToDbByGroupId(String groupId) {
 		Connection<Post> postList = _fbClient.fetchConnection(groupId + "/feed", Post.class);
 		HashMap<String, Byte> tempMapUserValue = new HashMap<String, Byte>();
 		Long sizeItemsId = null;
@@ -147,8 +152,7 @@ public class FbConnector {
 						}
 					}
 				}
-				
-
+				// zapis do db 
 				tempPostId = convertPostId(post.getId());
 				for (String key : tempMapUserValue.keySet()) {
 					tempValue = tempMapUserValue.get(key);
@@ -170,59 +174,64 @@ public class FbConnector {
 				}
 			}
 		}
-
-		return null;
 	}
 
 	private String convertPostId(String postId) {
 		return postId.split("_")[1];
 	}
 	
-	public Long getResultFbSearch(){
-		
-		/*DEPRACTED*/
-		Connection<Post> publicSearch =
-				_fbClient.fetchConnection("search", Post.class,
-				    Parameter.with("q", "watermelon"), Parameter.with("type", "list"));	
-//		Connection<User> targetedSearch =_fbClient.fetchConnection("1604917516431522/members", User.class,
-//			    Parameter.with("q", "Marek"), Parameter.with("type", "user"));
-		//return targetedSearch.getData().size();
-		return publicSearch.getTotalCount();
-	}
-	
-	public String testSmapleFql(){
-		String query = "SELECT uid, name FROM user WHERE uid=978123312214781";
-		List<FqlUser> users = _fbClient.executeFqlQuery(query, FqlUser.class);
+	public List<String> getAllGroupIdForLoggedUser(){
+		List<String> groupListId = new LinkedList<String>();
+		try {
+			Connection<Group> groupList = _fbClient.fetchConnection("me" + "/Groups", Group.class);
+			List<Group> myGroupList = groupList.getData();
+				for (Group group : myGroupList) {
+					groupListId.add(group.getId());
+				}
 
-		return "Users: " + users;
-
-
-
-
-		
-	}
-	
-	public class FqlUser {
-		  @Facebook
-		  String uid;
-
-		  @Facebook
-		  String name;
-
-		  @Override
-		  public String toString() {
-		    return String.format("%s (%s)", name, uid);
-		  }
+		} catch (Exception e) {
+			throw e;
 		}
+		return groupListId;
+			
+	}  
+	
+	public List<Recomendation> convertPostIdToModelRecomendation(List<String> idList){
+		List<Recomendation> recomendationList = new LinkedList<Recomendation>();
+		Post post= null;
+		Recomendation recomendation = null;
+		for(String id: idList){
+			 post = _fbClient.fetchObject(id, Post.class);
+			 recomendation = new  Recomendation();
+			 recomendation.setPost(post.getMessage());
+			 recomendation.setUser(post.getFrom().getName());
+			 recomendation.setGroupName(post.getTo().get(0).getName());
+			 recomendation.setGroupId(post.getId());
+			 recomendationList.add(recomendation);
+			 //recomendation.setUser(user);
+			 //recomendation.setUser(post.get);
+			 //recomendation.setGroup(group);
+			//zawswze musi zwracaæ pierwszy 
+			 
+						
+		}
+		
+		return recomendationList ;
+	}
+	
 
-	/*
-	 * public void CreateDateToModelCF(String groupId){ Connection<Post>
-	 * postList = _fbClient.fetchConnection(groupId+"/feed", Post.class); for
-	 * (List<Post> myFeedConnectionPage : postList) for (Post post :
-	 * myFeedConnectionPage){ if(post.getLikes()!=null){ for(NamedFacebookType
-	 * like : post.getLikes().getData()){ lik }
-	 * 
-	 * } } }
-	 */
+	
+	public List<Recomendation> getAllRecomendation(){
+		List<Recomendation> recomendationList = new ArrayList<Recomendation>();
+//		for(String groupId: getAllGroupIdForLoggedUser()){
+//			//zapisane w db
+//			saveFacebookPostToDbByGroupId(groupId);
+//		}
+		saveFacebookPostToDbByGroupId("1604917516431522");
+		 return convertPostIdToModelRecomendation(Recomender.craeteItemSimilarityCFRecomender(SimilarityType.PEARSONCORRELATION));
+		
+	}
+	
+	
 
 }

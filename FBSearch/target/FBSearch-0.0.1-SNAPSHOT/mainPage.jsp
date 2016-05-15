@@ -9,14 +9,6 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <link rel="stylesheet" href="./css/bootstrap.min.css"/>         
 <script src="./js/bootstrap.min.js"></script>   
-<script>
-var table = document.getElementById('itemRecTable');
-var cells = table.getElementsByTagName("td"); 
-for (var i = 0; i < cells.length; i++) { 
-   cells[i].onclick = function(){tes();};
-}
-
-</script>
 </head>
 <body>
 <!-- Wstawić tabelę z wynikami rekomendacji -->
@@ -36,7 +28,7 @@ for (var i = 0; i < cells.length; i++) {
                
                 <c:choose>
                     <c:when test="${not empty recomendationList}">
-                        <table  class="table table-striped" id="itemRecTable">
+                        <table  class="table table-striped">
                             <thead>
                                 <tr>
                                 	<td>Id</td>

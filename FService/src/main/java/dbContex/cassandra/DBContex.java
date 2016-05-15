@@ -14,9 +14,10 @@ import com.datastax.driver.core.Session;
 
 public class DBContex {
 
-	private Cluster cluster;
-	private Session session;
-	private Metadata metadata;
+	private static Cluster cluster;
+	private static Session session;
+	private static Metadata metadata;
+	private static DBContex dbContex; 
 	
 	private static DataModel cassndraDbModel;
 	
@@ -46,18 +47,27 @@ public class DBContex {
 	public final static String ITEMSIDS_COLUMN_ITEMID = "itemid";
 
 	//powinnien byc pywatny konsturkotro singletona
-	public DBContex() {
+	private DBContex() {
+	}
+	
+	
+	public static DBContex getInstance(){
+		if(dbContex == null){ 
+			dbContex = new DBContex();
+			startDBCassandra();
+		} 
+		return dbContex; 
 	}
 
-	public void connect(String node) {
+	public static  void connect(String node) {
 		cluster = Cluster.builder().addContactPoint(node).build();
 		 metadata = cluster.getMetadata();
-		System.out.printf("Connected to cluster: %s\n",
-				metadata.getClusterName());
-		for (Host host : metadata.getAllHosts()) {
-			System.out.printf("Datatacenter: %s; Host: %s; Rack: %s\n",
-					host.getDatacenter(), host.getAddress(), host.getRack());
-		}
+//		System.out.printf("Connected to cluster: %s\n",
+//				metadata.getClusterName());
+//		for (Host host : metadata.getAllHosts()) {
+//			System.out.printf("Datatacenter: %s; Host: %s; Rack: %s\n",
+//					host.getDatacenter(), host.getAddress(), host.getRack());
+//		}
 		if (metadata.getKeyspace(KEYSPACE) == null) {
 			session = cluster.connect();
 		} else {
@@ -80,30 +90,30 @@ public class DBContex {
 					+ " AND key_validation_class=LongType"
 					+ " AND default_validation_class=FloatType");
 			// wstawiamy testowe dane do uzytkownika
-			session.execute("set users[0][0]='1.0'; "
-					+ "set users[1][0]='3.0';" + "set users[2][2]='1.0';");
+//			session.execute("set users[0][0]='1.0'; "
+//					+ "set users[1][0]='3.0';" + "set users[2][2]='1.0';");
 			// wstwawiamy kolumne przedmity
 			session.execute("CREATE COLUMN FAMILY items "
 					+ "WITH comparator = LongType"
 					+ "AND key_validation_class=LongType "
 					+ "AND default_validation_class=FloatType;");
 			// wstawiamy testowe przedmioty
-			session.execute("set items[0][0]='1.0';" + "set items[0][1]='3.0';"
-					+ "set items[2][2]='1.0';");
+//			session.execute("set items[0][0]='1.0';" + "set items[0][1]='3.0';"
+//					+ "set items[2][2]='1.0';");
 			// /wstwaimy kolumne userIds
 			session.execute("CREATE COLUMN FAMILY userIDs"
 					+ "WITH comparator = LongType "
 					+ "AND key_validation_class=LongType;");
 			// wstawiamy testowe userIDs
-			session.execute("set userIDs[0][0]=''; " + "set userIDs[0][1]=''; "
-					+ "set userIDs[0][2]='';");
+//			session.execute("set userIDs[0][0]=''; " + "set userIDs[0][1]=''; "
+//					+ "set userIDs[0][2]='';");
 			// wstawwamy kolumne itemIds
 			session.execute("CREATE COLUMN FAMILY itemIDs"
 					+ " WITH comparator = LongType  "
 					+ "AND key_validation_class=LongType;");
 			// wstwaimay testowe itemids
-			session.execute("set itemIDs[0][0]=''; "
-					+ " set itemIDs[0][1]=''; " + "set itemIDs[0][2]='';");
+//			session.execute("set itemIDs[0][0]=''; "
+//					+ " set itemIDs[0][1]=''; " + "set itemIDs[0][2]='';");
 		} catch (Exception e) {
 			// throw e;
 		}
@@ -181,8 +191,8 @@ public class DBContex {
 		getSession().execute(steatment);
 	}
 
-	public void startDBCassandra() {
-		this.connect(LOCAL_CONNECTION);
+	public static void startDBCassandra() {
+		connect(LOCAL_CONNECTION);
 	}
 
 	// Region to getter and setter
@@ -190,12 +200,12 @@ public class DBContex {
 	public Session getSession() {
 		if (session == null) {
 			if (cluster == null) {
-				this.startDBCassandra();
+				startDBCassandra();
 			}
 		} else if (session.isClosed()) {
-			this.session = cluster.connect(KEYSPACE);
+			session = cluster.connect(KEYSPACE);
 		}
-		return this.session;
+		return session;
 	}
 
 	public long getLengthFromTable(String table) {
