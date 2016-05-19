@@ -193,7 +193,6 @@ public class FbConnector {
 			throw e;
 		}
 		return groupListId;
-			
 	}  
 	
 	public List<Recomendation> convertPostIdToModelRecomendation(List<String> idList){

@@ -9,10 +9,67 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <link rel="stylesheet" href="./css/bootstrap.min.css"/>         
 <script src="./js/bootstrap.min.js"></script>   
+<script type="text/javascript">
+// var table = document.getElementById("itemRecTable");
+// var cells = table.getElementsByTagName("td");
+// var infoTd = table.getElementsByClassName("infoTd");
+
+// for (var i = 0; i < cells.length; i++) { 
+// 	var postId = cells[i];
+//    cells[i].onclick = function(){goToPost(postId);};
+// }
+
+// function goToPost(postId){
+	
+	
+// }
+
+
+
+</script>
+
+<script type="text/javascript">
+                       
+    $(document).ready(function(){
+        $('#itemRecTable tbody').on( 'click', 'td', function () {
+        	var $row = $(this).closest("tr");
+        	$tds = $row.find("td:nth-child(4)");
+        	var idObjFb = "";
+        	$.each($tds, function() {                
+        	    idObjFb = $(this).text();         
+        	});
+        	window.location.href = "https://www.facebook.com/"+idObjFb;
+
+        });
+    });
+    
+    $("#searchAction").on("keyup", function() {
+        var value = $(this).val();
+
+        $("table tr").each(function(index) {
+            if (index !== 0) {
+
+                $row = $(this);
+
+                var id = $row.find("td:first").text();
+
+                if (id.indexOf(value) !== 0) {
+                    $row.hide();
+                }
+                else {
+                    $row.show();
+                }
+            }
+        });
+    });
+
+</script>
 </head>
+
 <body>
 <!-- Wstawić tabelę z wynikami rekomendacji -->
-            <!--Employees List-->
+           <div class="container">
+                 <h2>Rekomendacje</h2>
            <form action="/servletManager" method="get" id="seachEmployeeForm" role="form">
                 <input type="hidden" id="searchAction" name="searchAction" value="searchByName">
                 <div class="form-group col-xs-5">
@@ -24,14 +81,15 @@
                 <br></br>
                 <br></br>
             </form>
+            
             <form action="/servletManager" method="post" id="recomendationForm" role="form" >          
                
                 <c:choose>
                     <c:when test="${not empty recomendationList}">
-                        <table  class="table table-striped">
+                        <table  class="table table-hover" id="itemRecTable">
                             <thead>
                                 <tr>
-                                	<td>Id</td>
+<!--                                 	<td>Id</td> -->
                                     <td>Grupa</td>
                                     <td>Treść</td>
                                     <td>Użytkownik</td>
@@ -43,30 +101,25 @@
                                     <c:set var="classSucess" value="info"/>
                                 </c:if>
                                 <tr class="${classSucess}">
-                                    <td>${recomendation.getId()}</td>
-                                    <td>${recomendation.getGroupName()}</td>
-                                    <td>${recomendation.getPost()}</td>
-                                    <td>${recomendation.getUser()}</td>                                   
+<%--                                     <td >${recomendation.getId()}</td> --%>
+                                    <td class="infoTd">${recomendation.getGroupName()}</td>
+                                    <td class ="infoTd">${recomendation.getPost()}</td>
+                                    <td class = "infoId">${recomendation.getUser()}</td>   
+                                    <td style="display:none">${recomendation.getGroupId()} </td>                                
                                 </tr>
                             </c:forEach>               
                         </table>  
                     </c:when>                    
+                    
                     <c:otherwise>
                         <br>           
                         <div class="alert alert-info">
                            Brak rekomendacji 
                         </div>
                     </c:otherwise>
-                </c:choose>                        
+                </c:choose>                    
             </form>
+            </div>
            
-        </div>
-        <table>
-<tbody>
-
-<table>
-<tbody>
-
-
 </body>
 </html>

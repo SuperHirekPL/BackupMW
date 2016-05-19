@@ -25,10 +25,10 @@ public class RunTest {
 //		dbInstance.createSchemaForTwoVer();
 //		Example.connectWithFacebookByToken();
 //		Recomender.craeteItemSimilarityCFRecomender(SimilarityType.EUCLIDEANDISTANCE);
-		FbConnector fbconn = new FbConnector(appToken);
-		List<String> listId = new LinkedList<String>();
-		listId.add(groupID);
-		fbconn.convertPostIdToModelRecomendation(listId);
+		 DBContex dbContext = DBContex.getInstance();
+		 dbContext.deleteDefaultKeysSpace();
+		 dbContext.createSchemaForTwoVer();
+		 
 		
 	
 
